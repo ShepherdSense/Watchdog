@@ -1,0 +1,22 @@
+name: Publish November 4 Watchdog edition
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Publish November 4 edition
+        run: |
+          git config user.name "ShepherdSense"
+          git config user.email "ShepherdSense@users.noreply.github.com"
+          git mv -f watchdog.html index.html
+          git commit -m "Publish November 4, 2026 Watchdog edition"
+          git push origin main
