@@ -1,0 +1,18 @@
+name: Publish Nov 5 Watchdog edition
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Swap watchdog.html over index.html
+        run: |
+          ls -l watchdog.html index.html
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git mv -f watchdog.html index.html
+          git commit -m "Publish November 5, 2026 Watchdog edition"
+          git push
