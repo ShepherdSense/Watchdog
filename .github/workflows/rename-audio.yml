@@ -1,0 +1,27 @@
+name: Rename Nov 7 audio file
+
+on:
+  push:
+    paths:
+      - '.github/workflows/rename-audio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename audio file
+        run: |
+          if [ -f audio/watchdog-news-2026-11-07.mp3 ]; then
+            git mv -f audio/watchdog-news-2026-11-07.mp3 audio/watchdog-2026-11-07.mp3
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git commit -m "Rename Nov 7 Watchdog narration audio to watchdog-2026-11-07.mp3"
+            git push
+          else
+            echo "Source file not found; nothing to rename."
+          fi
