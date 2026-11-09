@@ -1,0 +1,20 @@
+name: Publish Watchdog Nov 9
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Swap Nov 9 build into index.html
+        run: |
+          git config user.name "ShepherdSense"
+          git config user.email "shepherdsense@users.noreply.github.com"
+          git mv -f watchdog.html index.html
+          git commit -m "Publish Watchdog November 9, 2026 edition"
+          git push
