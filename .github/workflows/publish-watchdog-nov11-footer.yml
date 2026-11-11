@@ -1,0 +1,21 @@
+name: Publish Watchdog Nov 11 footer fix
+on:
+  push:
+    branches: [main]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish Watchdog Nov 11 footer fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git mv -f watchdog.html index.html
+          git rm -q --cached .github/workflows/publish-watchdog-nov11-footer.yml
+          rm -f .github/workflows/publish-watchdog-nov11-footer.yml
+          git add -A
+          git commit -m "Publish Watchdog Nov 11 footer fix"
+          git push
