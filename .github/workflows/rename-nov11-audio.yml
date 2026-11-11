@@ -1,0 +1,22 @@
+name: Rename Nov 11 audio
+on:
+  workflow_dispatch:
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename audio file
+        run: |
+          set -e
+          ls -l audio/
+          git mv audio/watchdog-news-november-11-2026-texas-drawl-edition-2026-11-11.mp3 audio/watchdog-2026-11-11.mp3
+          ls -l audio/
+          git config user.name "ShepherdSense"
+          git config user.email "ShepherdSense@users.noreply.github.com"
+          git rm .github/workflows/rename-nov11-audio.yml
+          git status --short
+          git commit -m "Rename Nov 11 audio to watchdog-2026-11-11.mp3"
+          git push
