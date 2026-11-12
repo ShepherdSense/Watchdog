@@ -1,0 +1,19 @@
+name: Publish page 2026-11-12
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-page-2026-11-12.yml'
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Move page into place and commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git mv -f watchdog.html index.html
+          git commit -m "Publish Watchdog Nov 12 2026 edition"
+          git push origin main
