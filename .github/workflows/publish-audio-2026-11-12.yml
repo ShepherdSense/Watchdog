@@ -1,0 +1,19 @@
+name: Publish audio 2026-11-12
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-audio-2026-11-12.yml'
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Move MP3 into place and commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git mv -f watchdog-news-november-12-2026-texas-drawl-edition-2026-11-12.mp3 audio/watchdog-2026-11-12.mp3
+          git commit -m "Publish Nov 12 2026 narration audio"
+          git push origin main
