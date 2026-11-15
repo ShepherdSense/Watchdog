@@ -1,0 +1,27 @@
+name: Publish Watchdog 2026-11-15
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish edition
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "ShepherdSense"
+          git config user.email "shepherdsense@users.noreply.github.com"
+          gh release download temp-audio-2026-11-15 -p watchdog-2026-11-15.mp3 -D audio/
+          echo "a827983fca2d67193c7a4906df904188  audio/watchdog-2026-11-15.mp3" | md5sum -c -
+          git mv -f watchdog.html index.html
+          git add audio/watchdog-2026-11-15.mp3 index.html
+          git commit -m "Publish Watchdog Nov 15 2026"
+          git push
