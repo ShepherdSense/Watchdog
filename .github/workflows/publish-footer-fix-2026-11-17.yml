@@ -1,0 +1,22 @@
+name: Publish footer fix 2026-11-17
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish Watchdog Nov 17 footer fix
+        run: |
+          git config user.name "ShepherdSense"
+          git config user.email "shepherdsense@users.noreply.github.com"
+          git mv -f watchdog.html index.html
+          git commit -m "Publish Watchdog Nov 17 footer fix"
+          git push
