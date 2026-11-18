@@ -1,0 +1,26 @@
+name: Publish November 18 edition
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-2026-11-18.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename edition files into place
+        run: |
+          git config user.name "ShepherdSense"
+          git config user.email "shepherdsense@users.noreply.github.com"
+          git mv -f watchdog-news-november-18-texas-drawl-edition-2026-11-18.mp3 audio/watchdog-2026-11-18.mp3
+          git mv -f watchdog.html index.html
+          md5sum audio/watchdog-2026-11-18.mp3
+          ls -l audio/watchdog-2026-11-18.mp3 index.html
+          git commit -m "Publish Watchdog November 18, 2026 edition"
+          git push
