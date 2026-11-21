@@ -1,0 +1,16 @@
+name: Publish Watchdog Nov 21
+permissions:
+  contents: write
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-watchdog-nov21.yml'
+      - 'watchdog.html'
+  workflow_dispatch:
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish edition
+        run: 'git config user.name "github-actions[bot]" && git config user.email "github-actions[bot]@users.noreply.github.com" && git mv -f watchdog.html index.html && git mv -f audio/watchdog-news-november-21-2026-texas-drawl-edition-2026-11-21.mp3 audio/watchdog-2026-11-21.mp3 && git commit -m "Watchdog Nov 21 edition" && git push'
