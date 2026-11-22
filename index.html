@@ -95,14 +95,41 @@ table{width:100%;border-collapse:collapse;font-size:13.5px} th,td{padding:12px 1
 .leader{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
 .leader h3{margin:0;font-size:18px} .leader .role{color:var(--muted);font-size:13px;margin:2px 0 10px}
 .leader dl{margin:0;font-size:14px} .leader dt{font-weight:700;margin-top:10px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)} .leader dd{margin:3px 0 0;color:var(--muted)}
-/* Listen bar */
+/* Listen bar — large centered player */
 .listen-bar{background:var(--ink);color:var(--bg);border-bottom:3px solid var(--accent)}
-.listen-inner{display:flex;align-items:center;gap:16px;padding:14px 0;flex-wrap:wrap}
-.listen-info{min-width:0}
-.listen-label{font-family:"Barlow Condensed",sans-serif;font-size:24px;font-weight:700;letter-spacing:.03em;line-height:1;text-transform:uppercase}
+.listen-inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:22px 0 24px}
+.listen-info{min-width:0;max-width:760px}
+.listen-label{font-family:"Barlow Condensed",sans-serif;font-size:clamp(26px,4.5vw,34px);font-weight:700;letter-spacing:.03em;line-height:1;text-transform:uppercase}
 .listen-label span{color:var(--accent)}
-.listen-meta{font-size:12.5px;opacity:.75;margin-top:3px}
-.listen-bar audio{flex:1 1 280px;min-width:220px;height:40px}
+.listen-meta{font-size:13.5px;opacity:.8;margin-top:5px}
+.player{width:100%;max-width:620px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.player-controls{display:flex;align-items:center;justify-content:center;gap:22px;width:100%}
+.ctrl-btn{cursor:pointer;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:var(--bg);font-family:"IBM Plex Sans",system-ui,sans-serif}
+.ctrl-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.ctrl-side{width:72px;height:72px;min-width:72px;min-height:72px;border-radius:50%;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.45);font-weight:700}
+.ctrl-side:hover{background:rgba(255,255,255,.16);border-color:#fff}
+.ctrl-side:active{transform:scale(.96)}
+.ctrl-side svg{width:26px;height:26px;flex-shrink:0}
+.ctrl-side span{font-size:12px;line-height:1;letter-spacing:.02em}
+.ctrl-play{width:96px;height:96px;min-width:96px;min-height:96px;border-radius:50%;background:var(--accent);border:3px solid #fff;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.45);flex-direction:row}
+.ctrl-play:hover{background:#7c3aed;transform:scale(1.03)}
+.ctrl-play:active{transform:scale(.97)}
+.ctrl-play svg{width:40px;height:40px}
+.icon-pause{display:none}
+.player.is-playing .icon-play{display:none}
+.player.is-playing .icon-pause{display:block}
+.player-progress{display:flex;align-items:center;gap:12px;width:100%;max-width:560px}
+.player-time{font-family:"IBM Plex Mono",monospace;font-size:13px;min-width:42px;opacity:.9}
+.player-time:last-child{text-align:left}
+.player-time:first-child{text-align:right}
+.seek{flex:1 1 auto;-webkit-appearance:none;appearance:none;height:8px;border-radius:999px;background:rgba(255,255,255,.22);outline:none;cursor:pointer;min-width:0}
+.seek::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--accent);cursor:pointer}
+.seek::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--accent);cursor:pointer}
+.player-actions{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px}
+.player-actions a{color:#fff;text-decoration:underline;text-underline-offset:3px;font-weight:600;opacity:.95}
+.speed-btn{background:rgba(255,255,255,.1);color:var(--bg);border:1.5px solid rgba(255,255,255,.35);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;min-height:40px;min-width:56px}
+.speed-btn:hover{background:rgba(255,255,255,.18)}
+@media(max-width:480px){.player-controls{gap:16px}.ctrl-play{width:88px;height:88px;min-width:88px;min-height:88px}.ctrl-side{width:64px;height:64px;min-width:64px;min-height:64px}.ctrl-play svg{width:36px;height:36px}}
 footer{padding:28px 0 40px;border-top:3px solid var(--ink);color:var(--muted);font-size:13px}
 .callout{border:1px solid var(--line);background:var(--warn-bg);border-radius:8px;padding:14px 16px;font-size:14px;margin:16px 0}
 </style>
@@ -112,9 +139,34 @@ footer{padding:28px 0 40px;border-top:3px solid var(--ink);color:var(--muted);fo
   <div class="wrap listen-inner">
     <div class="listen-info">
       <div class="listen-label">Listen to today&rsquo;s brief &mdash; <span>Sunday, November 22, 2026</span></div>
-      <div class="listen-meta">Runtime 34:59 &bull; Heartfelt Boot narration</div>
+      <div class="listen-meta">Runtime 34:59 &bull; Heartfelt Boot narration &bull; Tap the big button to play</div>
     </div>
-    <audio controls preload="metadata" src="https://shepherdsense.github.io/Watchdog/audio/watchdog-2026-11-22.mp3" aria-label="Listen to the November 22, 2026 edition audio narration, narrated in a Southern drawl">Your browser can&rsquo;t play this audio. <a href="https://shepherdsense.github.io/Watchdog/audio/watchdog-2026-11-22.mp3">Download the November 22, 2026 narration (MP3)</a>.</audio>
+    <div class="player" id="player">
+      <div class="player-controls" role="group" aria-label="Audio controls">
+        <button type="button" class="ctrl-btn ctrl-side" id="rewindBtn" aria-label="Rewind 15 seconds">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.5 5.5V2L6.8 6.8 12.5 11.6V8.1c3.1 0 5.6 2.5 5.6 5.6s-2.5 5.6-5.6 5.6-5.6-2.5-5.6-5.6H4.9c0 4.2 3.4 7.6 7.6 7.6s7.6-3.4 7.6-7.6-3.4-7.6-7.6-7.6Z"/></svg>
+          <span>−15s</span>
+        </button>
+        <button type="button" class="ctrl-btn ctrl-play" id="playBtn" aria-label="Play narration">
+          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+        </button>
+        <button type="button" class="ctrl-btn ctrl-side" id="forwardBtn" aria-label="Fast forward 15 seconds">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="transform:scaleX(-1)"><path d="M12.5 5.5V2L6.8 6.8 12.5 11.6V8.1c3.1 0 5.6 2.5 5.6 5.6s-2.5 5.6-5.6 5.6-5.6-2.5-5.6-5.6H4.9c0 4.2 3.4 7.6 7.6 7.6s7.6-3.4 7.6-7.6-3.4-7.6-7.6-7.6Z"/></svg>
+          <span>+15s</span>
+        </button>
+      </div>
+      <div class="player-progress">
+        <span class="player-time" id="currentTime">0:00</span>
+        <input class="seek" type="range" id="seekBar" min="0" max="2099" value="0" step="1" aria-label="Seek through narration">
+        <span class="player-time" id="durationTime">34:59</span>
+      </div>
+      <div class="player-actions">
+        <button type="button" class="speed-btn" id="speedBtn" aria-label="Change playback speed">1× speed</button>
+        <a href="https://shepherdsense.github.io/Watchdog/audio/watchdog-2026-11-22.mp3">Download MP3</a>
+      </div>
+      <audio id="brief-audio" preload="metadata" src="https://shepherdsense.github.io/Watchdog/audio/watchdog-2026-11-22.mp3" aria-label="Listen to the November 22, 2026 edition audio narration, narrated in a Southern drawl"></audio>
+    </div>
   </div>
 </div>
 <header class="masthead">
@@ -366,5 +418,82 @@ footer{padding:28px 0 40px;border-top:3px solid var(--ink);color:var(--muted);fo
   </footer>
 
 </main>
+<script>
+(function(){
+  var audio = document.getElementById('brief-audio');
+  var player = document.getElementById('player');
+  var playBtn = document.getElementById('playBtn');
+  var rewindBtn = document.getElementById('rewindBtn');
+  var forwardBtn = document.getElementById('forwardBtn');
+  var seekBar = document.getElementById('seekBar');
+  var currentEl = document.getElementById('currentTime');
+  var durationEl = document.getElementById('durationTime');
+  var speedBtn = document.getElementById('speedBtn');
+  if(!audio || !playBtn) return;
+  var speeds = [1, 1.25, 1.5, 2, 0.75];
+  var speedIdx = 0;
+  function fmt(s){
+    if(!isFinite(s) || s < 0) s = 0;
+    s = Math.floor(s);
+    var m = Math.floor(s/60);
+    var sec = s % 60;
+    return m + ':' + (sec < 10 ? '0' : '') + sec;
+  }
+  function syncPlayUI(){
+    var playing = !audio.paused && !audio.ended;
+    player.classList.toggle('is-playing', playing);
+    playBtn.setAttribute('aria-label', playing ? 'Pause narration' : 'Play narration');
+  }
+  playBtn.addEventListener('click', function(){
+    if(audio.paused || audio.ended){
+      var p = audio.play();
+      if(p && p.catch) p.catch(function(){});
+    } else {
+      audio.pause();
+    }
+  });
+  rewindBtn.addEventListener('click', function(){
+    audio.currentTime = Math.max(0, (audio.currentTime || 0) - 15);
+  });
+  forwardBtn.addEventListener('click', function(){
+    var max = isFinite(audio.duration) ? audio.duration : 2099;
+    audio.currentTime = Math.min(max, (audio.currentTime || 0) + 15);
+  });
+  speedBtn.addEventListener('click', function(){
+    speedIdx = (speedIdx + 1) % speeds.length;
+    audio.playbackRate = speeds[speedIdx];
+    speedBtn.textContent = speeds[speedIdx] + '× speed';
+  });
+  audio.addEventListener('loadedmetadata', function(){
+    if(isFinite(audio.duration)){
+      seekBar.max = Math.floor(audio.duration);
+      durationEl.textContent = fmt(audio.duration);
+    }
+  });
+  audio.addEventListener('timeupdate', function(){
+    if(isFinite(audio.currentTime)){
+      seekBar.value = Math.floor(audio.currentTime);
+      currentEl.textContent = fmt(audio.currentTime);
+    }
+    if(isFinite(audio.duration) && audio.duration){
+      var pct = (audio.currentTime / audio.duration) * 100;
+      seekBar.style.background = 'linear-gradient(to right, #6d28d9 0%, #6d28d9 ' + pct + '%, rgba(255,255,255,.22) ' + pct + '%, rgba(255,255,255,.22) 100%)';
+    }
+  });
+  audio.addEventListener('play', syncPlayUI);
+  audio.addEventListener('pause', syncPlayUI);
+  audio.addEventListener('ended', syncPlayUI);
+  seekBar.addEventListener('input', function(){
+    audio.currentTime = parseFloat(seekBar.value) || 0;
+    currentEl.textContent = fmt(audio.currentTime);
+  });
+  // If metadata already loaded (cached), set duration
+  if(audio.readyState >= 1 && isFinite(audio.duration)){
+    seekBar.max = Math.floor(audio.duration);
+    durationEl.textContent = fmt(audio.duration);
+  }
+  syncPlayUI();
+})();
+</script>
 </body>
 </html>
