@@ -139,7 +139,7 @@ footer{padding:28px 0 40px;border-top:3px solid var(--ink);color:var(--muted);fo
   <div class="wrap listen-inner">
     <div class="listen-info">
       <div class="listen-label">Listen to today&rsquo;s brief &mdash; <span>Monday, November 23, 2026</span></div>
-      <div class="listen-meta">Runtime 37:15 &bull; Voice 1 narration &bull; Tap the big button to play</div>
+      <div class="listen-meta">Runtime 46:17 &bull; Voice 1 narration &bull; Tap the big button to play</div>
     </div>
     <div class="player" id="player">
       <div class="player-controls" role="group" aria-label="Audio controls">
@@ -158,8 +158,8 @@ footer{padding:28px 0 40px;border-top:3px solid var(--ink);color:var(--muted);fo
       </div>
       <div class="player-progress">
         <span class="player-time" id="currentTime">0:00</span>
-        <input class="seek" type="range" id="seekBar" min="0" max="2235" value="0" step="1" aria-label="Seek through narration">
-        <span class="player-time" id="durationTime">37:15</span>
+        <input class="seek" type="range" id="seekBar" min="0" max="2777" value="0" step="1" aria-label="Seek through narration">
+        <span class="player-time" id="durationTime">46:17</span>
       </div>
       <div class="player-actions">
         <button type="button" class="speed-btn" id="speedBtn" aria-label="Change playback speed">1× speed</button>
@@ -445,7 +445,7 @@ footer{padding:28px 0 40px;border-top:3px solid var(--ink);color:var(--muted);fo
     audio.currentTime = Math.max(0, (audio.currentTime || 0) - 15);
   });
   forwardBtn.addEventListener('click', function(){
-    var max = isFinite(audio.duration) ? audio.duration : 2235;
+    var max = isFinite(audio.duration) ? audio.duration : 2777;
     audio.currentTime = Math.min(max, (audio.currentTime || 0) + 15);
   });
   speedBtn.addEventListener('click', function(){
