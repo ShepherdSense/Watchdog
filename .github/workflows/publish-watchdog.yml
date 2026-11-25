@@ -1,0 +1,14 @@
+name: Publish Watchdog Nov 25
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish audio and page
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: 'git config user.name "github-actions[bot]" && git config user.email "github-actions[bot]@users.noreply.github.com" && gh release download tmp-watchdog-2026-11-25 --pattern "*.mp3" --dir /tmp && echo "267ccc873870d3ec7266a6b8f6f28f5d  /tmp/watchdog-news-november-25-2026-texas-drawl-edition-2026-11-25.mp3" | md5sum -c - && mkdir -p audio && mv /tmp/watchdog-news-november-25-2026-texas-drawl-edition-2026-11-25.mp3 audio/watchdog-2026-11-25.mp3 && git mv -f watchdog.html index.html && git add -A && git commit -m "Watchdog Nov 25: audio + page" && git push'
