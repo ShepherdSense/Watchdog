@@ -1,0 +1,27 @@
+name: Temp Publish Audio 2026-11-27
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-audio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download MP3 asset and publish to audio/
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "ShepherdSense"
+          git config user.email "shepherdsense@users.noreply.github.com"
+          mkdir -p audio
+          gh release download temp-audio-20261127 --pattern "watchdog-2026-11-27.mp3" --dir /tmp/mp3-download --clobber
+          mv /tmp/mp3-download/watchdog-2026-11-27.mp3 audio/watchdog-2026-11-27.mp3
+          echo "0551a5c0ee8e5181ecb5d92ce9aa9279  audio/watchdog-2026-11-27.mp3" | md5sum -c -
+          ls -l audio/watchdog-2026-11-27.mp3
+          git add audio/watchdog-2026-11-27.mp3
+          git commit -m "Publish audio for November 27, 2026"
+          git push
