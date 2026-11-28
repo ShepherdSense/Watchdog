@@ -1,0 +1,25 @@
+name: Publish audio 20261128
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and publish audio
+        run: |
+          git config user.name "ShepherdSense"
+          git config user.email "shepherdsense@users.noreply.github.com"
+          mkdir -p /tmp/audio-dl
+          gh release download temp-audio-20261128 --pattern 'watchdog-2026-11-28.mp3' --dir /tmp/audio-dl
+          echo "720b06235541faba3b8933cecc7c759b  /tmp/audio-dl/watchdog-2026-11-28.mp3" | md5sum -c -
+          mkdir -p audio
+          mv /tmp/audio-dl/watchdog-2026-11-28.mp3 audio/watchdog-2026-11-28.mp3
+          git add audio/watchdog-2026-11-28.mp3
+          git commit -m "Watchdog audio Nov 28"
+          git push
