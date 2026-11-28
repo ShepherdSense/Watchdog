@@ -12,6 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Download and publish audio
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "ShepherdSense"
           git config user.email "shepherdsense@users.noreply.github.com"
